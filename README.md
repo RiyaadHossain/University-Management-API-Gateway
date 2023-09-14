@@ -1,3 +1,1 @@
-
-
-# university-management-api-gateway-starter
+# University Management - API Gateway
