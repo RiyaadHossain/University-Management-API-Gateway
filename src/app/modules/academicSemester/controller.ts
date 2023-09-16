@@ -1,22 +1,56 @@
 import { RequestHandler } from 'express';
 import { AcademicSemesterServices } from './service';
 import sendResponse from '../../../shared/response';
-import httpStatus from 'http-status';
 
 const insertIntoDB: RequestHandler = async (req, res, next) => {
-  console.log('hello');
   try {
     const result = await AcademicSemesterServices.insertIntoDB(req);
-    console.log({ result });
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Academic Semester created successfully',
-      data: result
-    });
+    sendResponse(res, result);
   } catch (error) {
     next(error);
   }
 };
 
-export const AcademicSemesterControllers = { insertIntoDB };
+const getAllFromDB: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await AcademicSemesterServices.getAllFromDB(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSingleFromDB: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await AcademicSemesterServices.getSingleFromDB(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateOneIntoDB: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await AcademicSemesterServices.updateOneIntoDB(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteOneInDB: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await AcademicSemesterServices.deleteOneInDB(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const AcademicSemesterControllers = {
+  insertIntoDB,
+  getAllFromDB,
+  getSingleFromDB,
+  updateOneIntoDB,
+  deleteOneInDB
+};
