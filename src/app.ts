@@ -12,8 +12,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.use('/api/v1', routes);
-app.use('/', (req, res) => {
+// Application Routes
+app.use('/api/v1', routes);
+
+// Health Check
+app.get('/', (req, res) => {
   res.send({ message: 'Hello from API Gateway' });
 });
 
