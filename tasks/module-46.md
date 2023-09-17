@@ -1,8 +1,8 @@
 ## Task:
 
-- Academic Semester ( auth and core )
-- Academic Department ( auth and core )
-- Academic Faculty ( auth and core )
+- Academic Semester ( auth and core ) ✅
+- Academic Department ( auth and core ) ✅
+- Academic Faculty ( auth and core ) ✅
 - Building ( core ) ✅
 - Room ( core ) ✅
 - Course (core ) ✅
@@ -12,4 +12,4 @@
 - Semester Registration (core ) ✅
 - Student Enrolled Course (core ) ✅
 - Student Enrolled Course Mark (core ) ✅
-- Semester Payment (core )
+- Semester Payment (core ) ✅
