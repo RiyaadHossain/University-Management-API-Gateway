@@ -3,7 +3,7 @@ import { CoreService } from '../../../shared/axios';
 import { IGenericResponse } from '../../../interfaces/common';
 
 const insertIntoDB = async (req: Request) => {
-  const data: IGenericResponse = await CoreService.post('/academic-semesters', req.body, {
+  const data: IGenericResponse = await CoreService.post(req.baseUrl, req.body, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -13,7 +13,7 @@ const insertIntoDB = async (req: Request) => {
 };
 
 const getAllFromDB = async (req: Request) => {
-  const data: IGenericResponse = await CoreService.get('/academic-semesters', {
+  const data: IGenericResponse = await CoreService.get(req.baseUrl, {
     params: req.query,
     headers: {
       Authorization: req.headers.authorization
@@ -25,7 +25,8 @@ const getAllFromDB = async (req: Request) => {
 
 const getSingleFromDB = async (req: Request) => {
   const { id } = req.params;
-  const data: IGenericResponse = await CoreService.get(`/academic-semesters/${id}`, {
+  const url = `${req.baseUrl}/${id}`;
+  const data: IGenericResponse = await CoreService.get(url, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -36,7 +37,8 @@ const getSingleFromDB = async (req: Request) => {
 
 const updateOneIntoDB = async (req: Request) => {
   const { id } = req.params;
-  const data: IGenericResponse = await CoreService.patch(`/academic-semesters/${id}`, req.body, {
+  const url = `${req.baseUrl}/${id}`;
+  const data: IGenericResponse = await CoreService.patch(url, req.body, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -47,7 +49,8 @@ const updateOneIntoDB = async (req: Request) => {
 
 const deleteOneInDB = async (req: Request) => {
   const { id } = req.params;
-  const data: IGenericResponse = await CoreService.delete(`/academic-semesters/${id}`, {
+  const url = `${req.baseUrl}/${id}`;
+  const data: IGenericResponse = await CoreService.delete(url, {
     headers: {
       Authorization: req.headers.authorization
     }
