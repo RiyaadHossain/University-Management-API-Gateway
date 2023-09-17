@@ -31,4 +31,4 @@ route.delete(
   AcademicFacultyControllers.deleteOneInDB
 );
 
-export const AcademicSemesterRoutes = route;
+export const AcademicFacultyRoutes = route;
