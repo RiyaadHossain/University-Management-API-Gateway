@@ -31,4 +31,4 @@ route.delete(
   RoomControllers.deleteOneInDB
 );
 
-export const BuildingRoutes = route;
+export const RoomRoutes = route;
