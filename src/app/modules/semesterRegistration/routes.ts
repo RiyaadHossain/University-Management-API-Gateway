@@ -34,7 +34,6 @@ route.delete(
   SemesterRegistrationControllers.deleteOneInDB
 );
 
-// From here
 route.post(
   '/start-my-registration',
   auth(ENUM_USER_ROLE.STUDENT),

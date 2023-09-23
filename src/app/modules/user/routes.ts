@@ -42,7 +42,6 @@ router.post(
   FileUploader.upload.single('profileImage'),
   async (req, res, next) => {
     try {
-      console.log(JSON.parse(req.body.data))
       const userData = UserValidation.createAdmin.parse(JSON.parse(req.body.data));
       req.body = userData;
       UserController.createAdmin(req, res, next);

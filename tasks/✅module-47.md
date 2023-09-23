@@ -1,17 +1,17 @@
 ## Task:
 
-#### User Module
+#### Student Module ✅
 
-- Update User ( auth and core )
-- Delete User ( auth and core )
+- Update Student ( auth and core )
+- Delete Student ( auth and core )
 
-#### Faculty Module
+#### Faculty Module ✅
 
 - Create Faculty ( auth and core )
 - Update Faculty ( auth and core )
 - Delete Faculty ( auth and core )
 
-#### Admin Module
+#### Admin Module ✅
 
 - Create Admin ( auth and core )
 - Update Admin ( auth and core )
