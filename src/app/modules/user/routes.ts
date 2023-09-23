@@ -36,4 +36,19 @@ router.post(
   }
 );
 
+router.post(
+  '/create-admin',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FileUploader.upload.single('profileImage'),
+  async (req, res, next) => {
+    try {
+      const userData = UserValidation.createAdmin.parse(JSON.parse(req.body.data));
+      req.body = userData;
+      UserController.createAdmin(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export const UserRoutes = router;

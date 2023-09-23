@@ -20,4 +20,13 @@ const createFaculty: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const UserController = { createStudent, createFaculty };
+const createAdmin: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserService.createAdmin(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const UserController = { createStudent, createFaculty, createAdmin };

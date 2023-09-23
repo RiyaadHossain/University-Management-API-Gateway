@@ -114,4 +114,40 @@ const createFaculty = async (req: Request) => {
   return response;
 };
 
-export const UserService = { createStudent, createFaculty };
+const createAdmin = async (req: Request) => {
+  const fileData = req.file as IUploadFile;
+  if (!fileData) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
+  }
+
+  const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
+
+  if (uploadedImage) {
+    req.body.faculty.profileImage = uploadedImage.secure_url;
+  }
+
+  const { managementDepartment } = req.body.faculty;
+
+  const managementDepartmentResponse = await AuthService.get(
+    `/api/v1/department-managements?syncId=${managementDepartment}`
+  );
+
+  if (!managementDepartmentResponse.data.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Department management not found!');
+  }
+
+  if (managementDepartmentResponse.data.length) {
+    req.body.faculty.managementDepartment = managementDepartmentResponse.data[0].id;
+  }
+
+  const createFacultyURL = `${req.baseUrl}/create-admin`;
+  const response: IGenericResponse = await AuthService.post(createFacultyURL, req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+
+  return response;
+};
+
+export const UserService = { createStudent, createFaculty, createAdmin };
