@@ -123,25 +123,25 @@ const createAdmin = async (req: Request) => {
   const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
 
   if (uploadedImage) {
-    req.body.faculty.profileImage = uploadedImage.secure_url;
+    req.body.admin.profileImage = uploadedImage.secure_url;
   }
 
-  const { managementDepartment } = req.body.faculty;
+  const { managementDepartment } = req.body.admin;
 
   const managementDepartmentResponse = await AuthService.get(
-    `/api/v1/department-managements?syncId=${managementDepartment}`
+    `/api/v1/department-managements/${managementDepartment}`
   );
 
-  if (!managementDepartmentResponse.data.length) {
+  if (!managementDepartmentResponse.data) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Department management not found!');
   }
 
-  if (managementDepartmentResponse.data.length) {
-    req.body.faculty.managementDepartment = managementDepartmentResponse.data[0].id;
+  if (managementDepartmentResponse.data) {
+    req.body.admin.managementDepartment = managementDepartmentResponse.data._id;
   }
 
-  const createFacultyURL = `${req.baseUrl}/create-admin`;
-  const response: IGenericResponse = await AuthService.post(createFacultyURL, req.body, {
+  const createAdminURL = `${req.baseUrl}/create-admin`;
+  const response: IGenericResponse = await AuthService.post(createAdminURL, req.body, {
     headers: {
       Authorization: req.headers.authorization
     }

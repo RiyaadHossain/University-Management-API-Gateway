@@ -1,9 +1,9 @@
 import { Request } from 'express';
-import { CoreService } from '../../../shared/axios';
+import { AuthService } from '../../../shared/axios';
 import { IGenericResponse } from '../../../interfaces/common';
 
 const insertIntoDB = async (req: Request) => {
-  const data: IGenericResponse = await CoreService.post(req.baseUrl, req.body, {
+  const data: IGenericResponse = await AuthService.post(req.originalUrl, req.body, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -13,7 +13,7 @@ const insertIntoDB = async (req: Request) => {
 };
 
 const getAllFromDB = async (req: Request) => {
-  const data: IGenericResponse = await CoreService.get(req.baseUrl, {
+  const data: IGenericResponse = await AuthService.get(req.originalUrl, {
     params: req.query,
     headers: {
       Authorization: req.headers.authorization
@@ -24,9 +24,7 @@ const getAllFromDB = async (req: Request) => {
 };
 
 const getSingleFromDB = async (req: Request) => {
-  const { id } = req.params;
-  const url = `${req.baseUrl}/${id}`;
-  const data: IGenericResponse = await CoreService.get(url, {
+  const data: IGenericResponse = await AuthService.get(req.originalUrl, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -36,9 +34,7 @@ const getSingleFromDB = async (req: Request) => {
 };
 
 const updateOneIntoDB = async (req: Request) => {
-  const { id } = req.params;
-  const url = `${req.baseUrl}/${id}`;
-  const data: IGenericResponse = await CoreService.patch(url, req.body, {
+  const data: IGenericResponse = await AuthService.patch(req.originalUrl, req.body, {
     headers: {
       Authorization: req.headers.authorization
     }
@@ -48,9 +44,7 @@ const updateOneIntoDB = async (req: Request) => {
 };
 
 const deleteOneInDB = async (req: Request) => {
-  const { id } = req.params;
-  const url = `${req.baseUrl}/${id}`;
-  const data: IGenericResponse = await CoreService.delete(url, {
+  const data: IGenericResponse = await AuthService.delete(req.originalUrl, {
     headers: {
       Authorization: req.headers.authorization
     }

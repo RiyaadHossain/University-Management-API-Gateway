@@ -16,7 +16,9 @@ const globalExceptionHandler: ErrorRequestHandler = (
     path: string;
     message: string;
   }[] = [];
-  console.log(error);
+
+  // console.log(error);
+
   let statusCode = 500;
   let message = 'Something went wrong';
 
