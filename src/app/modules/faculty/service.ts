@@ -2,12 +2,32 @@ import { Request } from 'express';
 import { IGenericResponse } from '../../../interfaces/common';
 import { AuthService } from '../../../shared/axios';
 
-const updateOneInDB = async (req: Request) => {
-  const result: IGenericResponse = await AuthService.patch(req.baseUrl, req.body, {
-    withCredentials: true
-  });
+const getAllFromDB = async (req: Request) => {
+  const result: IGenericResponse = await AuthService.get(req.originalUrl);
 
-  return result
+  return result;
 };
 
-export const FacultyService = { updateOneInDB };
+const getSingleFromDB = async (req: Request) => {
+  const result: IGenericResponse = await AuthService.get(req.originalUrl);
+
+  return result;
+};
+
+const updateOneInDB = async (req: Request) => {
+  const result: IGenericResponse = await AuthService.patch(req.originalUrl, req.body, {
+    headers: { Authorization: req.headers.authorization }
+  });
+
+  return result;
+};
+
+const deleteOneInDB = async (req: Request) => {
+  const result: IGenericResponse = await AuthService.delete(req.originalUrl, {
+    headers: { Authorization: req.headers.authorization }
+  });
+
+  return result;
+};
+
+export const FacultyService = { getAllFromDB, getSingleFromDB, updateOneInDB, deleteOneInDB };

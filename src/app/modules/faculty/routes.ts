@@ -6,11 +6,27 @@ import { FacultyValidation } from './validation';
 import validateRequest from '../../middlewares/validateRequest';
 const router = express.Router();
 
-router.patch(
+router.get(
   '/',
+  FacultyController.getAllFromDB
+);
+
+router.get(
+  '/:id',
+  FacultyController.getSingleFromDB
+);
+
+router.patch(
+  '/:id',
   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(FacultyValidation.updateFaculty),
   FacultyController.updateOneInDB
 );
 
-export const UserRoutes = router;
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  FacultyController.deleteOneInDB
+);
+
+export const FacultyRoutes = router;
