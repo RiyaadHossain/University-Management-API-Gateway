@@ -66,4 +66,52 @@ const createStudent = async (req: Request) => {
   return response;
 };
 
-export const UserService = { createStudent };
+const createFaculty = async (req: Request) => {
+  const fileData = req.file as IUploadFile;
+  if (!fileData) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
+  }
+
+  const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
+
+  if (uploadedImage) {
+    req.body.faculty.profileImage = uploadedImage.secure_url;
+  }
+
+  const { academicDepartment, academicFaculty } = req.body.faculty;
+
+  const academicDepartmentResponse = await AuthService.get(
+    `/api/v1/academic-departments?syncId=${academicDepartment}`
+  );
+
+  const academicFacultyResponse = await AuthService.get(
+    `/api/v1/academic-faculties?syncId=${academicFaculty}`
+  );
+
+  if (!academicDepartmentResponse.data.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Academic Department not found!');
+  }
+
+  if (!academicFacultyResponse.data.length) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Academic Faculty not found!');
+  }
+
+  if (academicDepartmentResponse.data.length) {
+    req.body.faculty.academicDepartment = academicDepartmentResponse.data[0].id;
+  }
+
+  if (academicFacultyResponse.data.length) {
+    req.body.faculty.academicFaculty = academicFacultyResponse.data[0].id;
+  }
+
+  const createFacultyURL = `${req.baseUrl}/create-faculty`;
+  const response: IGenericResponse = await AuthService.post(createFacultyURL, req.body, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
+
+  return response;
+};
+
+export const UserService = { createStudent, createFaculty };

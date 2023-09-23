@@ -11,4 +11,13 @@ const createStudent: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const UserController = { createStudent };
+const createFaculty: RequestHandler = async (req, res, next) => {
+  try {
+    const result = await UserService.createFaculty(req);
+    sendResponse(res, result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const UserController = { createStudent, createFaculty };

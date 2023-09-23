@@ -2,6 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import multer from 'multer';
 import { ICloudinaryResponse, IUploadFile } from '../interfaces/file';
 import { unlinkSync } from 'fs';
+import { NextFunction } from 'express';
 
 cloudinary.config({
   cloud_name: 'dnvg3oecv',
@@ -15,7 +16,7 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, cb) => {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
     cb(null, file.fieldname + '-' + uniqueSuffix);
   }
 });
@@ -23,18 +24,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const uploadToCloudinary = (file: IUploadFile): Promise<ICloudinaryResponse> => {
-    return new Promise((resolve, reject) => {
-        cloudinary.uploader.upload(file.path,
-            (error: Error, result: ICloudinaryResponse) => {
-                unlinkSync(file.path);
-                if (error) {
-                    reject(error)
-                }
-                else {
-                    resolve(result)
-                }
-            })
-    })
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(file.path, (error: Error, result: ICloudinaryResponse) => {
+      unlinkSync(file.path);
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
+    });
+  });
 };
 
 export const FileUploader = {
