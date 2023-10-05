@@ -13,7 +13,8 @@ const insertIntoDB = async (req: Request) => {
 };
 
 const getAllFromDB = async (req: Request) => {
-  const data: IGenericResponse = await AuthService.get(req.originalUrl, {
+
+  const data: IGenericResponse = await AuthService.get(req.baseUrl, {
     params: req.query,
     headers: {
       Authorization: req.headers.authorization

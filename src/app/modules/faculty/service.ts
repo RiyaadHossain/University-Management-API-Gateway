@@ -3,13 +3,21 @@ import { IGenericResponse } from '../../../interfaces/common';
 import { AuthService } from '../../../shared/axios';
 
 const getAllFromDB = async (req: Request) => {
-  const result: IGenericResponse = await AuthService.get(req.originalUrl);
+  const result: IGenericResponse = await AuthService.get(req.originalUrl, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
 
   return result;
 };
 
 const getSingleFromDB = async (req: Request) => {
-  const result: IGenericResponse = await AuthService.get(req.originalUrl);
+  const result: IGenericResponse = await AuthService.get(req.originalUrl, {
+    headers: {
+      Authorization: req.headers.authorization
+    }
+  });
 
   return result;
 };
