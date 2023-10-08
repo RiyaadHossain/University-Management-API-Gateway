@@ -8,9 +8,9 @@ import { AuthService } from '../../../shared/axios';
 
 const createStudent = async (req: Request) => {
   const fileData = req.file as IUploadFile;
-  if (!fileData) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
-  }
+  // if (!fileData) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
+  // }
 
   const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
 
@@ -68,9 +68,9 @@ const createStudent = async (req: Request) => {
 
 const createFaculty = async (req: Request) => {
   const fileData = req.file as IUploadFile;
-  if (!fileData) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
-  }
+  // if (!fileData) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
+  // }
 
   const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
 
@@ -116,15 +116,17 @@ const createFaculty = async (req: Request) => {
 
 const createAdmin = async (req: Request) => {
   const fileData = req.file as IUploadFile;
-  if (!fileData) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
-  }
+  // if (!fileData) {
+  //   throw new ApiError(httpStatus.BAD_REQUEST, 'Select your profile image');
+  // }
 
-  const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
+  // const uploadedImage = await FileUploader.uploadToCloudinary(fileData);
 
-  if (uploadedImage) {
-    req.body.admin.profileImage = uploadedImage.secure_url;
-  }
+  // if (uploadedImage) {
+  //   req.body.admin.profileImage = uploadedImage.secure_url;
+  // }
+
+  req.body.admin.profileImage = 'URL';
 
   const { managementDepartment } = req.body.admin;
 

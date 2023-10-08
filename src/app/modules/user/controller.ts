@@ -25,6 +25,7 @@ const createAdmin: RequestHandler = async (req, res, next) => {
     const result = await UserService.createAdmin(req);
     sendResponse(res, result);
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };
